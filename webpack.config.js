@@ -4,7 +4,7 @@ module.exports = {
     entry: "./src/index.js",
     output : {
         path: path.resolve(__dirname, 'dist/assets'),
-        publicPath: 'dist',
+        publicPath: '/',
 		filename: "bundle.js"
     },
     devServer: {
@@ -12,7 +12,8 @@ module.exports = {
         contentBase: "./dist",
         port: 3000,
         publicPath: path.resolve(__dirname, './dist'),
-        writeToDisk: true
+        writeToDisk: true,
+        historyApiFallback: true,
     },
     module: {
         rules: [
@@ -25,6 +26,25 @@ module.exports = {
                         presets: ['latest', 'stage-0']
                     }
                 }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },{
+                        loader:  'css-loader',
+                    },{
+                        loader: 'postcss-loader'
+                    }
+                        
+                ]
+
+            },
+            {
+                test: /\.scss/,
+                use : ['style-loader','postcss-loader','sass-loader'
+                ]
             }
         ]
     }
